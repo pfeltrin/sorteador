@@ -1,14 +1,50 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <style>body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}</style>
     <title>Sorteio de Números</title>
 </head>
 <body>
     <div id="result"></div>
     <button onclick="realizarSorteio()">Sortear Números</button>
-    <script src="script.js"></script>
+    <script>
+function realizarSorteios() {
+    const todosNumerosSorteados = [];
+    
+    for (let i = 0; i < 5; i++) {
+        const numerosSorteados = sortearSemRepeticao(todosNumerosSorteados);
+        todosNumerosSorteados.push(...numerosSorteados);
+        exibirResultado(numerosSorteados, i + 1);
+    }
+}
+
+function sortearSemRepeticao(excluirNumeros) {
+    const numerosSorteados = [];
+    while (numerosSorteados.length < 15) {
+        const numero = Math.floor(Math.random() * 25) + 1;
+        if (!numerosSorteados.includes(numero) && !excluirNumeros.includes(numero)) {
+            numerosSorteados.push(numero);
+        }
+    }
+    return numerosSorteados;
+}
+
+function exibirResultado(numerosSorteados, sorteioNumero) {
+    const resultadoDiv = document.getElementById('result');
+    resultadoDiv.innerHTML += `<p>Sorteio ${sorteioNumero}: ${numerosSorteados.join(', ')}</p>`;
+}
+</script>
 </body>
 </html>
